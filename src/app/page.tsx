@@ -1,3 +1,5 @@
+export const unstable_instant = { prefetch: 'static' };
+
 import { TrendingUp, Users, MessageSquare, Calendar, ChevronRight } from "lucide-react";
 
 export default function HomeDashboard() {
