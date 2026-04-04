@@ -21,7 +21,7 @@ export default function ContentEnginePage() {
       </div>
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-0">
-        {/* Left Panel: Configuration */}
+       
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col">
           <div className="flex items-center gap-2 mb-6">
             <Settings2 className="w-5 h-5 text-slate-400" />
