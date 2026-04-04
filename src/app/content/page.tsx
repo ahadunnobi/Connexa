@@ -96,7 +96,7 @@ export default function ContentEnginePage() {
           </button>
         </div>
 
-        {/* Right Panel: Output & Editing */}
+      
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col relative overflow-hidden">
           {/* Subtle gradient glow in the corner to make it look premium */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
