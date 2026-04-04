@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PenTool, Brain, Zap, CheckCircle2, ChevronRight, Settings2, RefreshCw } from "lucide-react";
+import { PenTool, Brain, Zap, CheckCircle2, Settings2, RefreshCw } from "lucide-react";
 
 export default function ContentEnginePage() {
   const [topic, setTopic] = useState("The intersection of software architecture and stoic philosophy");
