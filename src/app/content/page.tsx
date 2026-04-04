@@ -98,7 +98,7 @@ export default function ContentEnginePage() {
 
       
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col relative overflow-hidden">
-          {/* Subtle gradient glow in the corner to make it look premium */}
+   
           <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex justify-between items-center mb-6 z-10">
@@ -112,7 +112,7 @@ export default function ContentEnginePage() {
 
           <div className="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-6 overflow-y-auto mb-6 z-10">
             <div className="space-y-6">
-              {/* Draft 1 */}
+    
               <div>
                 <div className="flex justify-between items-center mb-3">
                   <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">Option 1: The Hook Approach</span>
