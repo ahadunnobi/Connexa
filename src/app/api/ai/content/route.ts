@@ -5,6 +5,8 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+import { prisma } from "@/lib/prisma";
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -30,6 +32,16 @@ export async function POST(req: Request) {
     });
 
     const draft = response.choices[0].message.content;
+
+    // Save to database
+    await prisma.post.create({
+        data: {
+            title: `Draft on ${topic}`,
+            content: draft,
+            topic: topic,
+            status: "Draft",
+        }
+    });
 
     return NextResponse.json({ success: true, draft });
   } catch (error) {
