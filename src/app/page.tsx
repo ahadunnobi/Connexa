@@ -1,9 +1,9 @@
-export const dynamic = "force-dynamic";
-
 import { TrendingUp, Users, MessageSquare, Calendar, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { connection } from "next/server";
 
 export default async function HomeDashboard() {
+  await connection();
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: 'desc' },
     take: 5

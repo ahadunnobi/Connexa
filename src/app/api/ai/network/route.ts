@@ -1,28 +1,53 @@
 import { NextResponse } from "next/server";
+import { OpenAI } from "openai";
+import { prisma } from "@/lib/prisma";
+
+const ollama = new OpenAI({
+  baseURL: process.env.OLLAMA_BASE_URL || "http://localhost:11434/v1",
+  apiKey: "ollama",
+});
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { title, industry, angle } = body;
 
-    // TODO: Link up actual OpenAI logic
-    const mockProspects = [
-      {
-        name: "Alex Mercer",
-        role: `${title} @ CloudFleet`,
-        match: "High Match",
-        message: `Hi Alex, noticed you're scaling in ${industry}. I write about ${angle}—thought we might have some shared interests. Would love to connect!`
-      },
-      {
-        name: "Jordan Lee",
-        role: `Head of Tech @ Synapse AI`,
-        match: "Good Match",
-        message: `Jordan, your work in ${industry} caught my eye. As someone exploring ${angle}, I'd love to follow your updates. Let's connect.`
-      }
-    ];
+    const response = await ollama.chat.completions.create({
+      model: process.env.OLLAMA_MODEL || "llama3",
+      messages: [
+        {
+          role: "system",
+          content: `You are a social networking AI. Generate 2-3 networking prospects (Name, Role, Match Level, and a personalized Connection Message).
+          Target Title: ${title}
+          Industry: ${industry}
+          Connecting Angle: ${angle}
+          
+          Respond in valid JSON format only: 
+          {"prospects": [{"name": "Name", "role": "Full Role", "match": "Match Level", "message": "Message"}]}`
+        },
+      ],
+      response_format: { type: "json_object" }
+    });
 
-    return NextResponse.json({ success: true, prospects: mockProspects });
+    const parsed = JSON.parse(response.choices[0].message.content || '{"prospects": []}');
+    const prospects = parsed.prospects;
+
+    // Save to interactions for the dashboard
+    for (const p of prospects) {
+      await prisma.interaction.create({
+        data: {
+          name: p.name,
+          role: p.role,
+          status: "Found",
+          type: angle,
+          color: "border-l-cyan-500", // Default brand color
+        }
+      });
+    }
+
+    return NextResponse.json({ success: true, prospects });
   } catch (error) {
+    console.error("Networking AI Error:", error);
     return NextResponse.json({ success: false, error: "Failed to locate prospects" }, { status: 500 });
   }
 }
