@@ -24,7 +24,7 @@ export default function AnalyticsPage() {
           { label: "Content Reach", value: "45.2k", change: "+18%", icon: Zap, color: "text-amber-400" },
           { label: "Conversion Rate", value: "4.8%", change: "+2.1%", icon: Target, color: "text-emerald-400" },
           { label: "Engagement Velocity", value: "89/hr", change: "+12%", icon: Activity, color: "text-cyan-400" },
-        ].map((stat, i) => (
+        ].map((stat: any, i: number) => (
           <div key={i} className="bg-slate-900 border border-slate-800 p-6 rounded-xl relative overflow-hidden group">
             <div className={`absolute -right-4 -top-4 w-24 h-24 bg-slate-800/20 rounded-full blur-2xl group-hover:bg-slate-700/30 transition-all pointer-events-none`} />
             <div className="flex justify-between items-start mb-4">
@@ -64,7 +64,7 @@ export default function AnalyticsPage() {
               { topic: "Stoic Software Arch", score: 98, res: "12 meetings" },
               { topic: "The AI Sales Ghost", score: 85, res: "84 connections" },
               { topic: "Engineering Deep Work", score: 79, res: "1.2k likes" },
-            ].map((hook, i) => (
+            ].map((hook: any, i: number) => (
               <div key={i} className="flex items-center justify-between p-4 bg-slate-800/30 rounded-lg border border-slate-800 hover:bg-slate-800 transition-all cursor-default">
                 <div>
                   <h4 className="font-semibold text-white text-sm">{hook.topic}</h4>

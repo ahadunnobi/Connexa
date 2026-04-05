@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     const prospects = parsed.prospects;
 
     // Save to interactions for the dashboard
-    for (const p of prospects) {
+    for (const p of prospects as any[]) {
       await prisma.interaction.create({
         data: {
           name: p.name,
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ success: true, prospects });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Networking AI Error:", error);
     return NextResponse.json({ success: false, error: "Failed to locate prospects" }, { status: 500 });
   }
