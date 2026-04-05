@@ -76,7 +76,7 @@ export function ContentEngine() {
               </p>
               <div className="flex gap-2">
                 <span className="text-[10px] uppercase font-bold tracking-wider bg-slate-800 text-slate-300 px-2 py-1 rounded">Industry: Dev/Sales</span>
-                <span className="text-[10px] uppercase font-bold tracking-wider bg-slate-800 text-slate-300 px-2 py-1 rounded">Platform: LinkedIn</span>
+                <span className="text-[10px] uppercase font-bold tracking-wider bg-slate-800 text-slate-300 px-2 py-1 rounded">Platform: Facebook</span>
               </div>
             </div>
           </div>

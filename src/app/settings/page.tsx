@@ -61,27 +61,27 @@ export default function SettingsPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 rounded-lg">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-800 rounded text-sky-400">
+                <div className="p-2 bg-slate-800 rounded text-cyan-400">
                   <Zap className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white text-sm">OpenAI API Key</h4>
-                  <p className="text-xs text-slate-500">Connected: c175...5857</p>
+                  <h4 className="font-semibold text-white text-sm">Ollama Local Engine</h4>
+                  <p className="text-xs text-slate-500">Endpoint: http://localhost:11434/v1</p>
                 </div>
               </div>
-              <button className="text-xs font-bold text-slate-400 hover:text-white transition-colors">Rotate Key</button>
+              <button className="text-xs font-bold text-slate-400 hover:text-white transition-colors">Configure Model</button>
             </div>
-            <div className="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 rounded-lg opacity-50 grayscale">
+            <div className="flex items-center justify-between p-4 bg-slate-950 border border-slate-800 rounded-lg">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-slate-800 rounded text-blue-400">
+                <div className="p-2 bg-slate-800 rounded text-blue-500">
                   <Shield className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white text-sm">LinkedIn OAuth</h4>
+                  <h4 className="font-semibold text-white text-sm">Facebook Page Integration</h4>
                   <p className="text-xs text-slate-500">Disconnected</p>
                 </div>
               </div>
-              <button className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors">Connect</button>
+              <button className="text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors">Connect Page</button>
             </div>
           </div>
         </div>

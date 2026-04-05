@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { OpenAI } from "openai";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  baseURL: process.env.OLLAMA_BASE_URL || "http://localhost:11434/v1",
+  apiKey: "ollama", // Ollama doesn't require a real key but the client needs a non-empty string
 });
 
 import { prisma } from "@/lib/prisma";
@@ -12,12 +13,13 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { topic, tone, target } = body;
 
-    if (!process.env.OPENAI_API_KEY) {
-        return NextResponse.json({ success: false, error: "OpenAI API Key is missing in .env" }, { status: 400 });
+    // Ollama doesn't typically require an API key check, but we ensure the base URL is set
+    if (!process.env.OLLAMA_BASE_URL) {
+        console.warn("OLLAMA_BASE_URL is missing in .env, defaulting to http://localhost:11434/v1");
     }
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
+      model: process.env.OLLAMA_MODEL || "llama3",
       messages: [
         {
           role: "system",
@@ -26,7 +28,7 @@ export async function POST(req: Request) {
           Target Audience: ${target}
           Tone: ${tone}
           
-          Write a thought-provoking LinkedIn post. Blend technical depth with philosophical insights.`
+          Write a thought-provoking Facebook post for a business page. Blend technical depth with philosophical insights. Use appropriate formatting and line breaks for readability.`
         },
       ],
     });
