@@ -23,7 +23,7 @@ async function RecentInteractions() {
 
     return (
       <div className="space-y-4 relative z-10">
-        {interactions.map((contact, i) => (
+        {interactions.map((contact: any, i: number) => (
           <div key={i} className={`flex items-center justify-between p-4 bg-slate-800/40 rounded-lg border border-slate-800 border-l-4 ${contact.color} hover:bg-slate-800/80 transition-all cursor-pointer group`}>
             <div>
               <h4 className="font-semibold text-white group-hover:text-cyan-400 transition-colors">{contact.name}</h4>
@@ -62,7 +62,7 @@ async function PostQueue() {
 
     return (
       <div className="space-y-4 flex-1">
-        {posts.map((post, i) => (
+        {posts.map((post: any, i: number) => (
           <div key={i} className="border-b border-slate-800 last:border-0 pb-4 last:pb-0">
             <p className="text-sm font-medium text-slate-200 line-clamp-2 mb-2">"{post.title}"</p>
             <div className="flex items-center justify-between text-xs text-slate-500">
@@ -106,7 +106,7 @@ export default function HomeDashboard() {
           { label: "Profile Views", value: "1,245", trend: "+24%", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10" },
           { label: "Messages Sent", value: "156", trend: "+5%", icon: MessageSquare, color: "text-purple-400", bg: "bg-purple-500/10" },
           { label: "Posts Scheduled", value: "--", trend: "Syncing", icon: Calendar, color: "text-orange-400", bg: "bg-orange-400/10" },
-        ].map((metric, i) => (
+        ].map((metric: any, i: number) => (
           <div 
             key={i} 
             className="group bg-slate-900/50 backdrop-blur-sm border border-slate-800 p-6 rounded-xl flex flex-col justify-between hover:border-slate-700 hover:bg-slate-900/80 transition-all duration-300"
