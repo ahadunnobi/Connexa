@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { TrendingUp, Users, MessageSquare, Calendar, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 
