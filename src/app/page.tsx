@@ -1,8 +1,17 @@
-export const unstable_instant = { prefetch: 'static' };
-
 import { TrendingUp, Users, MessageSquare, Calendar, ChevronRight } from "lucide-react";
+import { prisma } from "@/lib/prisma";
 
-export default function HomeDashboard() {
+export default async function HomeDashboard() {
+  const posts = await prisma.post.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 5
+  });
+
+  const interactions = await prisma.interaction.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 3
+  });
+
   return (
     <div className="max-w-6xl mx-auto space-y-8">
       <div>
@@ -16,7 +25,7 @@ export default function HomeDashboard() {
           { label: "New Connections", value: "+34", trend: "+12%", icon: Users, color: "text-blue-400", bg: "bg-blue-500/10" },
           { label: "Profile Views", value: "1,245", trend: "+24%", icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10" },
           { label: "Messages Sent", value: "156", trend: "+5%", icon: MessageSquare, color: "text-purple-400", bg: "bg-purple-500/10" },
-          { label: "Posts Scheduled", value: "8", trend: "Active", icon: Calendar, color: "text-orange-400", bg: "bg-orange-400/10" },
+          { label: "Posts Scheduled", value: posts.length.toString(), trend: "Active", icon: Calendar, color: "text-orange-400", bg: "bg-orange-400/10" },
         ].map((metric, i) => (
           <div 
             key={i} 
@@ -39,7 +48,7 @@ export default function HomeDashboard() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Recent Connections */}
+        {/* Recent Interactions */}
         <div className="lg:col-span-2 bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-xl p-6 overflow-hidden relative">
           <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl pointer-events-none" />
           <div className="flex justify-between items-center mb-6 relative z-10">
@@ -49,11 +58,7 @@ export default function HomeDashboard() {
             </button>
           </div>
           <div className="space-y-4 relative z-10">
-            {[
-              { name: "Sarah Jenkins", role: "VP of Sales @ TechFlow", status: "Replied strongly", type: "Philosophy Hook", color: "border-l-cyan-500" },
-              { name: "David Chen", role: "Senior Developer @ Innovate", status: "Connection accepted", type: "Tech Leadership", color: "border-l-emerald-500" },
-              { name: "Elena Rodriguez", role: "Founder @ AI Dynamics", status: "Meeting booked", type: "Sales Pitch", color: "border-l-purple-500" },
-            ].map((contact, i) => (
+            {interactions.length > 0 ? interactions.map((contact, i) => (
               <div key={i} className={`flex items-center justify-between p-4 bg-slate-800/40 rounded-lg border border-slate-800 border-l-4 ${contact.color} hover:bg-slate-800/80 transition-all cursor-pointer group`}>
                 <div>
                   <h4 className="font-semibold text-white group-hover:text-cyan-400 transition-colors">{contact.name}</h4>
@@ -64,7 +69,11 @@ export default function HomeDashboard() {
                   <p className="text-[10px] text-slate-500 mt-1 uppercase font-bold tracking-wider">Topic: {contact.type}</p>
                 </div>
               </div>
-            ))}
+            )) : (
+                <div className="p-8 text-center border border-dashed border-slate-800 rounded-lg">
+                    <p className="text-slate-500 text-sm italic">No recent AI interactions found.</p>
+                </div>
+            )}
           </div>
         </div>
 
@@ -72,18 +81,17 @@ export default function HomeDashboard() {
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col">
           <h2 className="text-xl font-bold text-white mb-6">Next Posts Queue</h2>
           <div className="space-y-4 flex-1">
-            {[
-              { title: "The Philosophy of Clean Code vs Speed", time: "Today, 2:00 PM", platform: "LinkedIn" },
-              { title: "Cold Outbound Strategy 2026: The AI Revolution", time: "Tomorrow, 9:00 AM", platform: "LinkedIn" },
-            ].map((post, i) => (
+            {posts.length > 0 ? posts.map((post, i) => (
               <div key={i} className="border-b border-slate-800 last:border-0 pb-4 last:pb-0">
                 <p className="text-sm font-medium text-slate-200 line-clamp-2 mb-2">"{post.title}"</p>
                 <div className="flex items-center justify-between text-xs text-slate-500">
-                  <span>{post.time}</span>
+                  <span>{post.status}</span>
                   <span className="bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded font-medium">{post.platform}</span>
                 </div>
               </div>
-            ))}
+            )) : (
+                <p className="text-slate-500 text-sm italic">Queue is empty. Generate some content!</p>
+            )}
           </div>
           <button className="w-full mt-6 py-2.5 bg-cyan-600/10 hover:bg-cyan-600/20 text-cyan-400 border border-cyan-500/20 rounded-lg text-sm font-medium transition-colors">
             Generate New Content
